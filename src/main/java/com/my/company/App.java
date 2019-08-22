@@ -3,21 +3,21 @@ package com.my.company;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
-/**
- * This is Main Class
- *
- */
-public class App {
-    private static Map<String, List<String>> phoneBook = new HashMap<>();
-    static {
-        phoneBook.put("Иванов И.И.", Arrays.asList("+8 800 2000 500", "+8 800 200 600"));
-        phoneBook.put("Петров П.П.", Arrays.asList("+8 800 2000 700"));
-        phoneBook.put("Сидоров С.С.", Arrays.asList("+8 800 2000 800", "+8 800 2000 900", "+8 800 2000 000"));
+class App {
+    private Map<String, List<String>> phoneBook;
+
+    App(Map<String, List<String>> phoneBook) {
+        this.phoneBook = phoneBook;
     }
-    public static void main(String[] args) {
-        System.out.println("Enter FIO!");
+
+    /**
+     * read fio with console
+     * @return FirstName, SecondName and MiddleName of users
+     */
+    String readFio() {
         String fio = "";
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
             boolean isValidFio = false;
@@ -32,17 +32,16 @@ public class App {
         } catch (IOException e) {
             System.out.println("I/O problem");
         }
-        printPhones(fio);
+        return fio;
     }
 
     /**
      * print list of phones
      * @param fio - FirstName, SecondName and MiddleName of users
      */
-    private static void printPhones(String fio) {
-        List<String> phones = phoneBook.get(fio);
+    void printPhones(String fio) {
         int i = 0;
-        for (String phone: phones
+        for (String phone: phoneBook.get(fio)
         ) {
             System.out.println(String.format("%d. %s", ++i, phone));
         }
