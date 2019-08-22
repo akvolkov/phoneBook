@@ -6,11 +6,11 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 /**
- * Hello world!
+ * This is Main Class
  *
  */
 public class App {
-    static Map<String, List<String>> phoneBook = new HashMap<>();
+    private static Map<String, List<String>> phoneBook = new HashMap<>();
     static {
         phoneBook.put("Иванов И.И.", Arrays.asList("+8 800 2000 500", "+8 800 200 600"));
         phoneBook.put("Петров П.П.", Arrays.asList("+8 800 2000 700"));
@@ -22,7 +22,7 @@ public class App {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
             boolean isValidFio = false;
             while (!isValidFio) {
-                System.out.print("fio:>");
+                System.out.print("fio> ");
                 fio = reader.readLine();
                 isValidFio = phoneBook.containsKey(fio);
                 if (!isValidFio) {
@@ -32,10 +32,18 @@ public class App {
         } catch (IOException e) {
             System.out.println("I/O problem");
         }
+        printPhones(fio);
+    }
+
+    /**
+     * print list of phones
+     * @param fio - FirstName, SecondName and MiddleName of users
+     */
+    private static void printPhones(String fio) {
         List<String> phones = phoneBook.get(fio);
         int i = 0;
         for (String phone: phones
-             ) {
+        ) {
             System.out.println(String.format("%d. %s", ++i, phone));
         }
     }
